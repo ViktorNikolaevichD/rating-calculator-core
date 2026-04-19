@@ -10,9 +10,9 @@ class OrganizationAvgRatingCalculatorImpl(OrganizationAvgRatingCalculator):
     def recalculate_organization_nature_of_feedbacks(
         self,
         organization_feedbacks_with_marks: list[PublishedOrganizationFeedbackWithMarksDTO],
-    ) -> NatureOfFeedbacks | None:
+    ) -> str | None:
         feedback_natures: list[OrganizationFeedbackNatureOfFeedback] = [
-            feedback.nature_of_feedback
+            OrganizationFeedbackNatureOfFeedback(feedback.nature_of_feedback)
             for feedback in organization_feedbacks_with_marks
         ]
         if len(feedback_natures) == 0:
@@ -24,14 +24,14 @@ class OrganizationAvgRatingCalculatorImpl(OrganizationAvgRatingCalculator):
             )
         )
         if positive_feedback_percentage <= Decimal(20):
-            return NatureOfFeedbacks.NEGATIVE
+            return NatureOfFeedbacks.NEGATIVE.value
         if positive_feedback_percentage <= Decimal(40):
-            return NatureOfFeedbacks.MOSTLY_NEGATIVE
+            return NatureOfFeedbacks.MOSTLY_NEGATIVE.value
         if positive_feedback_percentage <= Decimal(60):
-            return NatureOfFeedbacks.MIXED
+            return NatureOfFeedbacks.MIXED.value
         if positive_feedback_percentage <= Decimal(80):
-            return NatureOfFeedbacks.MOSTLY_POSITIVE
-        return NatureOfFeedbacks.POSITIVE
+            return NatureOfFeedbacks.MOSTLY_POSITIVE.value
+        return NatureOfFeedbacks.POSITIVE.value
 
     def recalculate_organization_avg_rating(
         self,

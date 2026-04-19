@@ -10,7 +10,7 @@ class OrganizationAvgRatingCalculator(Service):
     def recalculate_organization_nature_of_feedbacks(
         self,
         organization_feedbacks_with_marks: list[PublishedOrganizationFeedbackWithMarksDTO],
-    ) -> NatureOfFeedbacks | None:
+    ) -> str | None:
         ...
 
     @abstractmethod
