@@ -49,14 +49,26 @@ class OrganizationAvgRatingCalculatorImpl(OrganizationAvgRatingCalculator):
         organization_feedbacks_with_marks: list[PublishedOrganizationFeedbackWithMarksDTO],
         category_id: int,
     ) -> int:
-        raise NotImplementedError()
+        marks: list[int] = [
+            mark
+            for organization_feedback in organization_feedbacks_with_marks
+            if organization_feedback.category_id == category_id
+            for mark in organization_feedback.marks
+        ]
+        return self.__calculate_avg_rating(marks=marks)
 
     def recalculate_organization_server_avg_rating(
         self,
         organization_feedbacks_with_marks: list[PublishedOrganizationFeedbackWithMarksDTO],
         server_id: int,
     ) -> int:
-        raise NotImplementedError()
+        marks: list[int] = [
+            mark
+            for organization_feedback in organization_feedbacks_with_marks
+            if organization_feedback.server_id == server_id
+            for mark in organization_feedback.marks
+        ]
+        return self.__calculate_avg_rating(marks=marks)
 
     def recalculate_organization_participiant_avg_rating(
         self,
