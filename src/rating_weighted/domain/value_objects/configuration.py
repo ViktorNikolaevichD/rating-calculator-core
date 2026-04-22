@@ -18,13 +18,24 @@ class RatingFactorsConfig:
 
 
 @dataclass(frozen=True)
+class TextLengthThresholds:
+    short: int
+    long: int
+
+
+@dataclass(frozen=True)
 class TextPenaltyConfig:
-    text_length_thresholds: tuple[int, int]
+    text_length_thresholds: TextLengthThresholds
     penalty_text_empty: float
     penalty_text_short: float
     penalty_text_middle: float
     penalty_text_long: float
     penalty_text_template: float
+
+
+@dataclass(frozen=True)
+class MarkPenaltyConfig:
+    text_length_thresholds: TextLengthThresholds
     penalty_text_extreme: float
 
 
