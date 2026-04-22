@@ -5,8 +5,13 @@ from rating_kernel.domain.value_objects.reviewer import Reviewer
 
 
 @dataclass(frozen=True)
+class FeedbackMark:
+    value: float
+
+
+@dataclass(frozen=True)
 class FeedbackContent:
-    marks: list[float]
+    marks: tuple[FeedbackMark, ...]
     text: str | None
 
 
