@@ -7,6 +7,7 @@ from rating_weighted.domain.value_objects.rating_context import RatingContext
 
 @dataclass(frozen=True)
 class AccountAgeFactorPolicy:
+    coefficient: float
     max_days_for_full_score: int = 30
 
     def apply(self, context: RatingContext) -> float:
@@ -17,9 +18,14 @@ class AccountAgeFactorPolicy:
             1.0,
         )
 
+    def contribution(self, context: RatingContext) -> float:
+        return self.coefficient * self.apply(context)
+
 
 @dataclass(frozen=True)
 class FeedbackExperienceFactorPolicy:
+    coefficient: float
+
     def apply(self, context: RatingContext) -> float:
         approved_reviews = context.feedback.reviewer.reputation.approved_reviews
 
@@ -28,24 +34,38 @@ class FeedbackExperienceFactorPolicy:
             1.0,
         )
 
+    def contribution(self, context: RatingContext) -> float:
+        return self.coefficient * self.apply(context)
+
 
 @dataclass(frozen=True)
 class UsefulnessFactorPolicy:
+    coefficient: float
+
     def apply(self, context: RatingContext) -> float:
         likes = context.feedback.reviewer.reputation.received_likes_on_feedbacks
         dislikes = context.feedback.reviewer.reputation.received_dislikes_on_feedbacks
 
         return (likes + 1) / (likes + dislikes + 1)
 
+    def contribution(self, context: RatingContext) -> float:
+        return self.coefficient * self.apply(context)
+
 
 @dataclass(frozen=True)
 class AccountVerificationFactorPolicy:
+    coefficient: float
+
     def apply(self, context: RatingContext) -> float:
         return 1.0 if context.feedback.reviewer.identity.is_verified else 0.0
+
+    def contribution(self, context: RatingContext) -> float:
+        return self.coefficient * self.apply(context)
 
 
 @dataclass(frozen=True)
 class ActivityDiversityFactorPolicy:
+    coefficient: float
     max_unique_targets_for_full_score: int = 10
 
     def apply(self, context: RatingContext) -> float:
@@ -56,10 +76,14 @@ class ActivityDiversityFactorPolicy:
             1.0,
         )
 
+    def contribution(self, context: RatingContext) -> float:
+        return self.coefficient * self.apply(context)
+
 
 @dataclass(frozen=True)
 class LongTermAccountRiskFactorPolicy:
     config: TemporalConfig
+    coefficient: float
     account_flag_ratio: float = 0.6
     deleted_reviews_history_ratio: float = 0.4
 
@@ -74,3 +98,6 @@ class LongTermAccountRiskFactorPolicy:
             deleted_reviews_history = self.deleted_reviews_history_ratio
 
         return account_flag + deleted_reviews_history
+
+    def contribution(self, context: RatingContext) -> float:
+        return self.coefficient * self.apply(context)
