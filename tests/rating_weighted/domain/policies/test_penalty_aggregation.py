@@ -1,4 +1,4 @@
-from rating_weighted.domain.policies.aggregation import PenaltyAggregationPolicy
+from rating_weighted.domain.policies.penalty_aggregation import PenaltyAggregationPolicy
 from rating_weighted.domain.value_objects.configuration import AggregatedPenaltyConfig
 
 
