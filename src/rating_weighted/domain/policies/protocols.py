@@ -23,3 +23,15 @@ class TotalMarkWeightAggregationPolicy(Protocol):
 
 class WeightedAverageMarkScoreAggregationPolicy(Protocol):
     def apply(self, marks_with_weights: tuple[FeedbackMarkWithWeight, ...]) -> float: ...
+
+
+class BaseRatingContributionPolicy(Protocol):
+    def apply(self, base_rating: float, total_mark_weight: float) -> float: ...
+
+
+class ReviewerTrustContributionPolicy(Protocol):
+    def apply(self, weighted_average_mark: float, total_mark_weight: float) -> float: ...
+
+
+class FinalRatingAggregationPolicy(Protocol):
+    def apply(self, base_rating_contribution: float, reviewer_trust_contribution: float) -> float: ...
