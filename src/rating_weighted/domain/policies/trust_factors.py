@@ -59,9 +59,9 @@ class ActivityDiversityFactorPolicy:
 
 @dataclass(frozen=True)
 class LongTermAccountRiskFactorPolicy:
+    config: TemporalConfig
     account_flag_ratio: float = 0.6
     deleted_reviews_history_ratio: float = 0.4
-    config: TemporalConfig
 
     def apply(self, context: RatingContext) -> float:
         account_flag = 0.0
