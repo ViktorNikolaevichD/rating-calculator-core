@@ -10,6 +10,7 @@ class ReviewerIdentity:
 @dataclass(frozen=True)
 class ReviewerActivityProfile:
     days_since_registration: int
+    number_of_reviews_left_in_24h: int
     unique_targets: int
 
 

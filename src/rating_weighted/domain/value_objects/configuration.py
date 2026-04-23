@@ -41,7 +41,6 @@ class MarkPenaltyConfig:
 
 @dataclass(frozen=True)
 class BehaviorPenaltyConfig:
-    maximum_total_feedback_penalty: float
     penalty_feedback_repeat: float
     penalty_burst: float
     penalty_flag: float
@@ -54,9 +53,15 @@ class TemporalConfig:
 
 
 @dataclass(frozen=True)
+class AggregatedPenaltyConfig:
+    maximum_total_feedback_penalty: float
+
+
+@dataclass(frozen=True)
 class WeightedRatingConfiguration:
     base: WeightedRatingBaseConfig
     factors: RatingFactorsConfig
     text: TextPenaltyConfig
     behavior: BehaviorPenaltyConfig
     temporal: TemporalConfig
+    aggregated: AggregatedPenaltyConfig
