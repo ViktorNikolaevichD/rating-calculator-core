@@ -10,6 +10,12 @@ class FeedbackMark:
 
 
 @dataclass(frozen=True)
+class FeedbackMarkWithWeight:
+    value: float
+    weight: float
+
+
+@dataclass(frozen=True)
 class FeedbackContent:
     marks: tuple[FeedbackMark, ...]
     text: str | None
