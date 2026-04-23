@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from math import log
 
-from _pytest import config
-
 from rating_weighted.domain.value_objects.configuration import TemporalConfig
 from rating_weighted.domain.value_objects.rating_context import RatingContext
 

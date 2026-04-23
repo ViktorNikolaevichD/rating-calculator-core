@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from rating_weighted.domain.value_objects.configuration import RatingFactorsConfig
-
 
 @dataclass(frozen=True)
 class TrustScoreAggregationPolicy:
