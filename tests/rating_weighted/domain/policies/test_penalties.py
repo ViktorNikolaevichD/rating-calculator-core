@@ -58,7 +58,7 @@ def text_penalty_policy() -> TextPenaltyPolicy:
 
 
 def test_behaviour_apply_adds_repeat_penalty_when_feedback_was_repeated_within_repeat_period(
-    behaviour_penalty_policy: BehaviourPenaltyPolicy,
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:
     base_context = make_feedback_mark_context()
     context = make_feedback_mark_context(
@@ -74,7 +74,7 @@ def test_behaviour_apply_adds_repeat_penalty_when_feedback_was_repeated_within_r
 
 
 def test_behaviour_apply_adds_burst_penalty_when_review_count_exceeds_activity_threshold(
-    behaviour_penalty_policy: BehaviourPenaltyPolicy,
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(
         reviews_left_in_24h=behaviour_penalty_policy.config.activity_surge_threshold_24h + 1,
@@ -86,7 +86,7 @@ def test_behaviour_apply_adds_burst_penalty_when_review_count_exceeds_activity_t
 
 
 def test_behaviour_apply_adds_flag_penalty_when_feedback_has_moderation_flag(
-    behaviour_penalty_policy: BehaviourPenaltyPolicy,
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(has_flag=True)
 
@@ -96,7 +96,7 @@ def test_behaviour_apply_adds_flag_penalty_when_feedback_has_moderation_flag(
 
 
 def test_behaviour_apply_adds_all_penalties_when_repeat_burst_and_flag_conditions_are_met(
-    behaviour_penalty_policy: BehaviourPenaltyPolicy,
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(
         reviews_left_in_24h=behaviour_penalty_policy.config.activity_surge_threshold_24h + 1,
@@ -116,7 +116,7 @@ def test_behaviour_apply_adds_all_penalties_when_repeat_burst_and_flag_condition
 
 
 def test_behaviour_apply_adds_repeat_and_burst_penalties_when_flag_condition_is_not_met(
-    behaviour_penalty_policy: BehaviourPenaltyPolicy,
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(
         reviews_left_in_24h=behaviour_penalty_policy.config.activity_surge_threshold_24h + 1,
@@ -135,7 +135,7 @@ def test_behaviour_apply_adds_repeat_and_burst_penalties_when_flag_condition_is_
 
 
 def test_behaviour_apply_adds_burst_and_flag_penalties_when_repeat_condition_is_not_met(
-    behaviour_penalty_policy: BehaviourPenaltyPolicy,
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(
         reviews_left_in_24h=behaviour_penalty_policy.config.activity_surge_threshold_24h + 1,
@@ -154,7 +154,7 @@ def test_behaviour_apply_adds_burst_and_flag_penalties_when_repeat_condition_is_
 
 
 def test_behaviour_apply_returns_zero_when_no_penalty_conditions_are_met(
-    behaviour_penalty_policy: BehaviourPenaltyPolicy,
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(has_flag=False, reviews_left_in_24h=0)
 
@@ -164,7 +164,7 @@ def test_behaviour_apply_returns_zero_when_no_penalty_conditions_are_met(
 
 
 def test_mark_apply_returns_penalty_for_extreme_mark_with_short_text(
-    mark_penalty_policy: MarkPenaltyPolicy,
+    mark_penalty_policy: MarkPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(mark_value=1, text="short")
 
@@ -174,7 +174,7 @@ def test_mark_apply_returns_penalty_for_extreme_mark_with_short_text(
 
 
 def test_mark_apply_returns_zero_for_extreme_mark_with_long_text(
-    mark_penalty_policy: MarkPenaltyPolicy,
+    mark_penalty_policy: MarkPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(mark_value=10, text="x" * mark_penalty_policy.config.text_length_thresholds.short)
 
@@ -184,7 +184,7 @@ def test_mark_apply_returns_zero_for_extreme_mark_with_long_text(
 
 
 def test_mark_apply_returns_zero_for_non_extreme_mark_with_short_text(
-    mark_penalty_policy: MarkPenaltyPolicy,
+    mark_penalty_policy: MarkPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(mark_value=7, text="short")
 
@@ -194,7 +194,7 @@ def test_mark_apply_returns_zero_for_non_extreme_mark_with_short_text(
 
 
 def test_text_apply_returns_empty_text_penalty_when_text_is_none(
-    text_penalty_policy: TextPenaltyPolicy,
+    text_penalty_policy: TextPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(text=None)
 
@@ -204,7 +204,7 @@ def test_text_apply_returns_empty_text_penalty_when_text_is_none(
 
 
 def test_text_apply_returns_short_text_penalty_when_text_is_shorter_than_short_threshold(
-    text_penalty_policy: TextPenaltyPolicy,
+    text_penalty_policy: TextPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(text="short")
 
@@ -214,7 +214,7 @@ def test_text_apply_returns_short_text_penalty_when_text_is_shorter_than_short_t
 
 
 def test_text_apply_returns_middle_text_penalty_when_text_length_is_between_thresholds(
-    text_penalty_policy: TextPenaltyPolicy,
+    text_penalty_policy: TextPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(text="x" * text_penalty_policy.config.text_length_thresholds.short)
 
@@ -224,7 +224,7 @@ def test_text_apply_returns_middle_text_penalty_when_text_length_is_between_thre
 
 
 def test_text_apply_returns_long_text_penalty_when_text_length_reaches_long_threshold(
-    text_penalty_policy: TextPenaltyPolicy,
+    text_penalty_policy: TextPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(text="x" * text_penalty_policy.config.text_length_thresholds.long)
 
@@ -234,7 +234,7 @@ def test_text_apply_returns_long_text_penalty_when_text_length_reaches_long_thre
 
 
 def test_text_apply_adds_template_penalty_to_length_penalty_when_text_has_template(
-    text_penalty_policy: TextPenaltyPolicy,
+    text_penalty_policy: TextPenaltyPolicy
 ) -> None:
     context = make_feedback_mark_context(
         text="x" * text_penalty_policy.config.text_length_thresholds.short,

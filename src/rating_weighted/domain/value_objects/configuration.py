@@ -59,6 +59,17 @@ class AggregatedPenaltyConfig:
 
 
 @dataclass(frozen=True)
+class RangeOfFinalMarkWeight:
+    min: float
+    max: float
+
+
+@dataclass(frozen=True)
+class FeedbackWeightAggregationConfig:
+    range_of_final_mark_weight: RangeOfFinalMarkWeight
+
+
+@dataclass(frozen=True)
 class WeightedRatingConfiguration:
     base: WeightedRatingBaseConfig
     factors: RatingFactorsConfig

@@ -40,7 +40,7 @@ def long_term_risk_policy() -> LongTermAccountRiskFactorPolicy:
 
 
 def test_account_age_factor_policy_returns_fraction_of_days_for_non_mature_account(
-    account_age_factor_policy: AccountAgeFactorPolicy,
+    account_age_factor_policy: AccountAgeFactorPolicy
 ) -> None:
     context = make_rating_context(days_since_registration=15)
 
@@ -50,7 +50,7 @@ def test_account_age_factor_policy_returns_fraction_of_days_for_non_mature_accou
 
 
 def test_account_age_factor_policy_is_capped_at_one_for_old_account(
-    account_age_factor_policy: AccountAgeFactorPolicy,
+    account_age_factor_policy: AccountAgeFactorPolicy
 ) -> None:
     context = make_rating_context(days_since_registration=100)
 
@@ -60,7 +60,7 @@ def test_account_age_factor_policy_is_capped_at_one_for_old_account(
 
 
 def test_account_age_factor_policy_contribution_applies_coefficient_to_factor(
-    account_age_factor_policy: AccountAgeFactorPolicy,
+    account_age_factor_policy: AccountAgeFactorPolicy
 ) -> None:
     context = make_rating_context(days_since_registration=15)
 
@@ -70,7 +70,7 @@ def test_account_age_factor_policy_contribution_applies_coefficient_to_factor(
 
 
 def test_feedback_experience_factor_policy_returns_zero_without_approved_reviews(
-    feedback_experience_factor_policy: FeedbackExperienceFactorPolicy,
+    feedback_experience_factor_policy: FeedbackExperienceFactorPolicy
 ) -> None:
     context = make_rating_context(approved_reviews=0)
 
@@ -80,7 +80,7 @@ def test_feedback_experience_factor_policy_returns_zero_without_approved_reviews
 
 
 def test_feedback_experience_factor_policy_is_capped_at_one_for_high_experience(
-    feedback_experience_factor_policy: FeedbackExperienceFactorPolicy,
+    feedback_experience_factor_policy: FeedbackExperienceFactorPolicy
 ) -> None:
     context = make_rating_context(approved_reviews=1_000)
 
@@ -138,7 +138,7 @@ def test_activity_diversity_factor_policy_is_capped_at_one_for_high_diversity() 
 
 
 def test_long_term_account_risk_factor_policy_returns_only_flag_ratio_when_only_flag_is_present(
-    long_term_risk_policy: LongTermAccountRiskFactorPolicy,
+    long_term_risk_policy: LongTermAccountRiskFactorPolicy
 ) -> None:
     context = make_rating_context(has_flag=True, deleted_reviews_history_in_30d=0)
 
@@ -148,7 +148,7 @@ def test_long_term_account_risk_factor_policy_returns_only_flag_ratio_when_only_
 
 
 def test_long_term_account_risk_factor_policy_returns_only_deleted_reviews_ratio_when_limit_is_exceeded(
-    long_term_risk_policy: LongTermAccountRiskFactorPolicy,
+    long_term_risk_policy: LongTermAccountRiskFactorPolicy
 ) -> None:
     context = make_rating_context(
         has_flag=False,
@@ -161,7 +161,7 @@ def test_long_term_account_risk_factor_policy_returns_only_deleted_reviews_ratio
 
 
 def test_long_term_account_risk_factor_policy_returns_zero_when_no_risk_signals_are_present(
-    long_term_risk_policy: LongTermAccountRiskFactorPolicy,
+    long_term_risk_policy: LongTermAccountRiskFactorPolicy
 ) -> None:
     context = make_rating_context(
         has_flag=False,
@@ -174,7 +174,7 @@ def test_long_term_account_risk_factor_policy_returns_zero_when_no_risk_signals_
 
 
 def test_long_term_account_risk_factor_policy_sums_all_risks_when_all_signals_are_present(
-    long_term_risk_policy: LongTermAccountRiskFactorPolicy,
+    long_term_risk_policy: LongTermAccountRiskFactorPolicy
 ) -> None:
     context = make_rating_context(
         has_flag=True,
