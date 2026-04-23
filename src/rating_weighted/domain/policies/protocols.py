@@ -1,8 +1,8 @@
 from typing import Protocol
 
 from rating_kernel.domain.value_objects.feedback import FeedbackMarkWithWeight
+from rating_kernel.domain.value_objects.reviewer import Reviewer
 from rating_weighted.domain.value_objects.feedback_mark_context import FeedbackMarkContext
-from rating_weighted.domain.value_objects.rating_context import RatingContext
 
 
 class PenaltyPolicy(Protocol):
@@ -10,7 +10,7 @@ class PenaltyPolicy(Protocol):
 
 
 class TrustFactorPolicy(Protocol):
-    def apply(self, context: RatingContext) -> float: ...
+    def apply(self, reviewer: Reviewer) -> float: ...
 
 
 class FeedbackWeightAggregationPolicy(Protocol):

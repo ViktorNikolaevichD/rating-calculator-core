@@ -59,7 +59,7 @@ def make_rating_context(
     now: datetime | None = None,
 ) -> RatingContext:
     current_time = _make_current_time(now)
-    reviewer = _make_rating_reviewer(
+    reviewer = make_rating_reviewer(
         is_verified=is_verified,
         has_flag=has_flag,
         days_since_registration=days_since_registration,
@@ -116,16 +116,16 @@ def _make_feedback(
     )
 
 
-def _make_rating_reviewer(
+def make_rating_reviewer(
     *,
-    is_verified: bool,
-    has_flag: bool,
-    days_since_registration: int,
-    unique_targets: int,
-    approved_reviews: int,
-    deleted_reviews_history_in_30d: int,
-    received_likes_on_feedbacks: int,
-    received_dislikes_on_feedbacks: int,
+    is_verified: bool = True,
+    has_flag: bool = False,
+    days_since_registration: int = 30,
+    unique_targets: int = 10,
+    approved_reviews: int = 20,
+    deleted_reviews_history_in_30d: int = 0,
+    received_likes_on_feedbacks: int = 5,
+    received_dislikes_on_feedbacks: int = 0,
 ) -> Reviewer:
     return Reviewer(
         identity=ReviewerIdentity(is_verified=is_verified, has_flag=has_flag),
