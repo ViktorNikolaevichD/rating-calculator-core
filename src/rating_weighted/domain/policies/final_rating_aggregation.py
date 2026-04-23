@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from math import exp
 
+from rating_weighted.domain.value_objects.configuration import WeightedRatingBaseConfig
+
 
 @dataclass(frozen=True)
 class FinalRatingAggregationPolicy:
@@ -10,15 +12,15 @@ class FinalRatingAggregationPolicy:
 
 @dataclass(frozen=True)
 class BaseRatingContributionPolicy:
-    weight_decay_divisor: float = 4.0
+    config: WeightedRatingBaseConfig
 
-    def apply(self, base_rating: float, total_mark_weight: float) -> float:
-        return base_rating * exp(-(total_mark_weight / self.weight_decay_divisor))
+    def apply(self, total_mark_weight: float) -> float:
+        return self.config.base_rating * exp(-(total_mark_weight / self.config.weight_division_coefficient))
 
 
 @dataclass(frozen=True)
 class ReviewerTrustContributionPolicy:
-    weight_decay_divisor: float = 4.0
+    config: WeightedRatingBaseConfig
 
     def apply(self, weighted_average_mark: float, total_mark_weight: float) -> float:
-        return weighted_average_mark * (1 - exp(-(total_mark_weight / self.weight_decay_divisor)))
+        return weighted_average_mark * (1 - exp(-(total_mark_weight / self.config.weight_division_coefficient)))
