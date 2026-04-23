@@ -63,7 +63,7 @@ def _make_reviewer(reviews_left_in_24h: int) -> Reviewer:
         ),
         reputation=ReviewerReputationHistory(
             approved_reviews=100,
-            deleted_reviews_history=0,
+            deleted_reviews_history_in_30d=0,
             received_likes_on_feedbacks=50,
             received_dislikes_on_feedbacks=5,
         ),

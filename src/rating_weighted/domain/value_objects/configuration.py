@@ -14,7 +14,7 @@ class RatingFactorsConfig:
     usefulness_factor_coefficient_of_past_feedback: float
     account_verification_factor_coefficient: float
     activity_diversity_factor_coefficient: float
-    long_term_account_risk_factor_ratio: float
+    long_term_account_risk_factor_coefficient: float
 
 
 @dataclass(frozen=True)
@@ -50,6 +50,7 @@ class BehaviorPenaltyConfig:
 class TemporalConfig:
     period_for_repeated_feedback_days: int
     activity_surge_threshold_24h: int
+    deleted_reviews_limit_for_period: int
 
 
 @dataclass(frozen=True)

@@ -13,6 +13,7 @@ def behaviour_penalty_policy() -> BehaviourPenaltyPolicy:
         config=TemporalConfig(
             period_for_repeated_feedback_days=7,
             activity_surge_threshold_24h=10,
+            deleted_reviews_limit_for_period=3,
         ),
         penalty_config=BehaviorPenaltyConfig(
             penalty_feedback_repeat=0.6,

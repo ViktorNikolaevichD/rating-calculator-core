@@ -17,7 +17,7 @@ class ReviewerActivityProfile:
 @dataclass(frozen=True)
 class ReviewerReputationHistory:
     approved_reviews: int
-    deleted_reviews_history: int
+    deleted_reviews_history_in_30d: int
     received_likes_on_feedbacks: int
     received_dislikes_on_feedbacks: int
 
