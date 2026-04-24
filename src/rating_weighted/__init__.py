@@ -12,6 +12,7 @@ from .domain.value_objects.configuration import (
     WeightedRatingConfiguration,
 )
 from .domain.value_objects.rating_context import RatingContext, RatingContextWithMarkWeights
+from .domain.value_objects.final_rating_calculation_result import FinalRatingCalculationResult
 from .domain.services.final_rating_calculator import FinalRatingCalculator
 from .domain.services.mark_weight_calculator import MarkWeightCalculator
 from .domain.services.penalty_calculator import PenaltyCalculator
@@ -31,6 +32,7 @@ __all__ = [
     "FeedbackWeightAggregationConfig",
     "RatingContext",
     "RatingContextWithMarkWeights",
+    "FinalRatingCalculationResult",
     "TrustFactorCalculator",
     "PenaltyCalculator",
     "MarkWeightCalculator",

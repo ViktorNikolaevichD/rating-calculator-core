@@ -22,5 +22,8 @@ class BaseRatingContributionPolicy:
 class ReviewerTrustContributionPolicy:
     config: WeightedRatingBaseConfig
 
+    def rating_maturity(self, total_mark_weight: float) -> float:
+        return 1 - exp(-(total_mark_weight / self.config.weight_division_coefficient))
+
     def apply(self, weighted_average_mark: float, total_mark_weight: float) -> float:
-        return weighted_average_mark * (1 - exp(-(total_mark_weight / self.config.weight_division_coefficient)))
+        return weighted_average_mark * self.rating_maturity(total_mark_weight)

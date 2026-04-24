@@ -34,7 +34,12 @@ def test_calculate_returns_final_rating_from_marks_with_weights() -> None:
 
     result = service.calculate(marks_with_weights)
 
-    assert result == pytest.approx(3.91206109), "Rfinal должен рассчитываться по формулам W, Aw и вкладов"
+    assert result.final_rating == pytest.approx(
+        3.91206109
+    ), "Rfinal должен рассчитываться по формулам W, Aw и вкладов"
+    assert result.rating_maturity == pytest.approx(
+        0.5276334472589853
+    ), "Зрелость рейтинга должна рассчитываться как 1 - exp(-W/k)"
 
 
 def test_from_configuration_builds_service_with_base_configuration() -> None:
