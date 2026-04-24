@@ -53,3 +53,4 @@ class FeedbackWithMarkWeights:
     timing: FeedbackTimingContext
     reviewer: Reviewer
     weight: float
+    trust_in_author: float

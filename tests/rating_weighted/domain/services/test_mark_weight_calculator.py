@@ -96,6 +96,7 @@ def test_calculate_builds_feedback_with_weighted_marks() -> None:
     assert result.feedback.content.marks[0].weight == pytest.approx(expected_w1)
     assert result.feedback.content.marks[1].weight == pytest.approx(expected_w2)
     assert result.feedback.weight == pytest.approx(expected_feedback_weight)
+    assert result.feedback.trust_in_author == pytest.approx(0.4)
     assert result.now == context.now
 
 

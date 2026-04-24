@@ -63,7 +63,10 @@ class MarkWeightCalculator:
         )
 
         feedback_with_mark_weights = self._build_feedback_with_mark_weights(
-            context, weighted_average_mark, marks_with_weights
+            context=context,
+            weighted_average_mark=weighted_average_mark,
+            marks_with_weights=marks_with_weights,
+            trust_score=trust_score,
         )
 
         return RatingContextWithMarkWeights(
@@ -92,6 +95,7 @@ class MarkWeightCalculator:
         context: RatingContext,
         weighted_average_mark: float,
         marks_with_weights: tuple[FeedbackMarkWithWeight, ...],
+        trust_score: float,
     ) -> FeedbackWithMarkWeights:
         return FeedbackWithMarkWeights(
             content=FeedbackContentWithMarkWeights(
@@ -102,4 +106,5 @@ class MarkWeightCalculator:
             timing=context.feedback.timing,
             reviewer=context.feedback.reviewer,
             weight=weighted_average_mark,
+            trust_in_author=trust_score,
         )
