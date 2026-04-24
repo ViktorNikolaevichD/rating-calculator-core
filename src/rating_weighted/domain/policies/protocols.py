@@ -9,10 +9,6 @@ class PenaltyPolicy(Protocol):
     def apply(self, context: FeedbackMarkContext) -> float: ...
 
 
-class TrustFactorPolicy(Protocol):
-    def apply(self, reviewer: Reviewer) -> float: ...
-
-
 class FeedbackWeightAggregationPolicy(Protocol):
     def apply(self, trust_score: float, total_penalty: float) -> float: ...
 
