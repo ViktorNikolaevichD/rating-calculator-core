@@ -22,6 +22,12 @@ class FeedbackContent:
 
 
 @dataclass(frozen=True)
+class FeedbackContentWithMarkWeights:
+    marks: tuple[FeedbackMarkWithWeight, ...]
+    text: str | None
+
+
+@dataclass(frozen=True)
 class FeedbackModerationState:
     text_has_template: bool
     has_flag: bool
@@ -38,3 +44,12 @@ class Feedback:
     moderation: FeedbackModerationState
     timing: FeedbackTimingContext
     reviewer: Reviewer
+
+
+@dataclass(frozen=True)
+class FeedbackWithMarkWeights:
+    content: FeedbackContentWithMarkWeights
+    moderation: FeedbackModerationState
+    timing: FeedbackTimingContext
+    reviewer: Reviewer
+    weight: float

@@ -21,7 +21,13 @@ def weighted_average_mark_score_aggregation_policy() -> WeightedAverageMarkScore
 def test_total_mark_weight_aggregation_policy_returns_sum_of_mark_weights(
     total_mark_weight_aggregation_policy: TotalMarkWeightAggregationPolicy,
 ) -> None:
-    result = total_mark_weight_aggregation_policy.apply((0.6, 0.9, 1.2))
+    result = total_mark_weight_aggregation_policy.apply(
+        (
+            FeedbackMarkWithWeight(value=5.0, weight=0.6),
+            FeedbackMarkWithWeight(value=3.0, weight=0.9),
+            FeedbackMarkWithWeight(value=4.0, weight=1.2),
+        )
+    )
 
     assert result == 2.7, "Суммарный вес W должен быть равен сумме всех wi"
 

@@ -1,6 +1,6 @@
 import pytest
 
-from rating_weighted.domain.policies.feedback_weight_aggregation import (
+from rating_weighted.domain.policies.mark_weight_aggregation import (
     MarkWeightAggregationPolicy,
 )
 from rating_weighted.domain.value_objects.configuration import (

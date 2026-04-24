@@ -7,8 +7,8 @@ from rating_kernel.domain.value_objects.feedback import FeedbackMarkWithWeight
 
 @dataclass(frozen=True)
 class TotalMarkWeightAggregationPolicy:
-    def apply(self, weights: Iterable[float]) -> float:
-        return sum(weights)
+    def apply(self, marks_with_weights: Iterable[FeedbackMarkWithWeight]) -> float:
+        return sum(mark_with_weight.weight for mark_with_weight in marks_with_weights)
 
 
 @dataclass(frozen=True)
