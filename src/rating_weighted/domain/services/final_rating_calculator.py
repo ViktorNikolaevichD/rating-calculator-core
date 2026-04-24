@@ -10,7 +10,7 @@ from rating_weighted.domain.policies.mark_score_aggregation import (
     TotalMarkWeightAggregationPolicy,
     WeightedAverageMarkScoreAggregationPolicy,
 )
-from rating_weighted.domain.value_objects.configuration import WeightedRatingConfiguration
+from rating_weighted.domain.value_objects.configuration import WeightedRatingBaseConfig
 
 
 @dataclass(frozen=True)
@@ -22,13 +22,13 @@ class FinalRatingCalculator:
     final_rating_aggregation_policy: FinalRatingAggregationPolicy
 
     @classmethod
-    def from_configuration(cls, configuration: WeightedRatingConfiguration) -> "FinalRatingCalculator":
+    def from_configuration(cls, configuration: WeightedRatingBaseConfig) -> "FinalRatingCalculator":
         return cls(
             total_mark_weight_aggregation_policy=TotalMarkWeightAggregationPolicy(),
             weighted_average_mark_score_aggregation_policy=WeightedAverageMarkScoreAggregationPolicy(),
-            base_rating_contribution_policy=BaseRatingContributionPolicy(config=configuration.base),
+            base_rating_contribution_policy=BaseRatingContributionPolicy(config=configuration),
             reviewer_trust_contribution_policy=ReviewerTrustContributionPolicy(
-                config=configuration.base
+                config=configuration
             ),
             final_rating_aggregation_policy=FinalRatingAggregationPolicy(),
         )
