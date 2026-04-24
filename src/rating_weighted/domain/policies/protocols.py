@@ -5,10 +5,6 @@ from rating_kernel.domain.value_objects.reviewer import Reviewer
 from rating_weighted.domain.value_objects.feedback_mark_context import FeedbackMarkContext
 
 
-class PenaltyPolicy(Protocol):
-    def apply(self, context: FeedbackMarkContext) -> float: ...
-
-
 class FeedbackWeightAggregationPolicy(Protocol):
     def apply(self, trust_score: float, total_penalty: float) -> float: ...
 

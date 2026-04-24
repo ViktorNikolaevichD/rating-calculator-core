@@ -74,6 +74,8 @@ class WeightedRatingConfiguration:
     base: WeightedRatingBaseConfig
     factors: RatingFactorsConfig
     text: TextPenaltyConfig
+    mark: MarkPenaltyConfig
     behavior: BehaviorPenaltyConfig
     temporal: TemporalConfig
     aggregated: AggregatedPenaltyConfig
+    feedback_weight_aggregation: FeedbackWeightAggregationConfig
