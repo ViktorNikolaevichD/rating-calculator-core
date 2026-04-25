@@ -73,6 +73,20 @@ def test_behaviour_apply_adds_repeat_penalty_when_feedback_was_repeated_within_r
     assert result == behaviour_penalty_policy.penalty_config.penalty_feedback_repeat, "Должен быть наложен штраф за повторную оценку"
 
 
+def test_behaviour_apply_returns_zero_when_feedback_was_not_repeated(
+    behaviour_penalty_policy: BehaviourPenaltyPolicy
+) -> None:
+    base_context = make_feedback_mark_context()
+    context = make_feedback_mark_context(
+        now=base_context.now,
+        last_repeat=None
+    )
+
+    result = behaviour_penalty_policy.apply(context)
+
+    assert result == 0.0, "Штраф не должен быть наложен, если оценка не повторялась"
+
+
 def test_behaviour_apply_adds_burst_penalty_when_review_count_exceeds_activity_threshold(
     behaviour_penalty_policy: BehaviourPenaltyPolicy
 ) -> None:

@@ -35,7 +35,7 @@ class FeedbackModerationState:
 
 @dataclass(frozen=True)
 class FeedbackTimingContext:
-    last_repeat: datetime
+    last_repeat: datetime | None
 
 
 @dataclass(frozen=True)

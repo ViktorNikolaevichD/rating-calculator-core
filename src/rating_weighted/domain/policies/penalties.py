@@ -34,7 +34,10 @@ class BehaviourPenaltyPolicy:
 
         return penalty
 
-    def _is_repeated_feedback(self, last_repeat: datetime, now: datetime) -> bool:
+    def _is_repeated_feedback(self, last_repeat: datetime | None, now: datetime) -> bool:
+        if last_repeat is None:
+            return False
+
         period = self.config.period_for_repeated_feedback_days
 
         return bool(now - last_repeat < timedelta(days=period))
