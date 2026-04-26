@@ -46,7 +46,7 @@ class UsefulnessFactorPolicy:
         likes = reviewer.reputation.received_likes_on_feedbacks
         dislikes = reviewer.reputation.received_dislikes_on_feedbacks
 
-        return (likes + 1) / (likes + dislikes + 1)
+        return (likes + 1) / (likes + dislikes + 2)
 
     def contribution(self, reviewer: Reviewer) -> float:
         return self.coefficient * self.apply(reviewer)
