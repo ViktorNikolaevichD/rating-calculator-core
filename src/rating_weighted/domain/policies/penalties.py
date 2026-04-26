@@ -94,6 +94,9 @@ class TextPenaltyPolicy:
         length = len(text)
         text_length_thresholds = self.config.text_length_thresholds
 
+        if length == 0:
+            return self.config.penalty_text_empty
+
         if length < text_length_thresholds.short:
             return self.config.penalty_text_short
 
