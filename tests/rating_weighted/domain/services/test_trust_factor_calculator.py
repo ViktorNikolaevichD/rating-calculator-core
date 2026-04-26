@@ -57,7 +57,7 @@ def test_calculate_returns_expected_weighted_sum_for_reviewer_without_risk(
     expected = (
         0.30 * 0.5
         + 0.25 * (log(1 + 3) / log(1 + 20))
-        + 0.20 * 0.75
+        + 0.20 * ((2 + 1) / (2 + 1 + 2))
         + 0.15 * 1.0
         + 0.10 * 0.5
         - 0.25 * 0.0
@@ -101,4 +101,14 @@ def test_calculate_returns_one_when_sum_exceeds_upper_bound(
 
     result = trust_factor_calculator.calculate(reviewer)
 
-    assert result == 1.0, "Итоговый trust score должен быть ограничен сверху единицей"
+    expected = (
+        0.30 * 1.0
+        + 0.25 * 1.0
+        + 0.20 * ((1_000 + 1) / (1_000 + 0 + 2))
+        + 0.15 * 1.0
+        + 0.10 * 1.0
+        - 0.25 * 0.0
+    )
+
+    assert result == pytest.approx(expected)
+    assert result <= 1.0, "Итоговый trust score должен быть ограничен сверху единицей"

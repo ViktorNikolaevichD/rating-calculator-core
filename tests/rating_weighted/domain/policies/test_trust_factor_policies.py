@@ -98,7 +98,9 @@ def test_usefulness_factor_policy_applies_like_dislike_smoothing_formula() -> No
 
     result = policy.apply(reviewer)
 
-    assert result == 5 / 11, "Фактор полезности должен рассчитываться с учетом сглаживания (likes + 1)"
+    expected = (4 + 1) / (4 + 6 + 2)
+
+    assert result == expected, "Фактор полезности должен рассчитываться с учетом сглаживания (likes + 1) и делителем +2"
 
 
 def test_account_verification_factor_policy_returns_one_for_verified_account() -> None:
