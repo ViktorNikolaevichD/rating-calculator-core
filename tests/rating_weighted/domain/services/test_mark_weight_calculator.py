@@ -20,8 +20,8 @@ from rating_weighted.domain.policies.final_rating_aggregation import (
     ReviewerTrustContributionPolicy,
 )
 from rating_weighted.domain.policies.mark_score_aggregation import (
+    AverageMarkWeightAggregationPolicy,
     TotalMarkWeightAggregationPolicy,
-    WeightedAverageMarkScoreAggregationPolicy,
 )
 from rating_weighted.domain.policies.mark_weight_aggregation import MarkWeightAggregationPolicy
 from rating_weighted.domain.services.mark_weight_calculator import MarkWeightCalculator
@@ -76,7 +76,7 @@ def test_calculate_builds_feedback_with_weighted_marks() -> None:
             )
         ),
         total_mark_weight_aggregation_policy=TotalMarkWeightAggregationPolicy(),
-        weighted_average_mark_score_aggregation_policy=WeightedAverageMarkScoreAggregationPolicy(),
+        average_mark_weight_aggregation_policy=AverageMarkWeightAggregationPolicy(),
         base_rating_contribution_policy=BaseRatingContributionPolicy(
             config=WeightedRatingBaseConfig(base_rating=5.0, weight_division_coefficient=4)
         ),
@@ -90,7 +90,7 @@ def test_calculate_builds_feedback_with_weighted_marks() -> None:
 
     expected_w1 = (0.5 + 0.4) * (1 - 0.10)
     expected_w2 = (0.5 + 0.4) * (1 - 0.20)
-    expected_feedback_weight = ((2.0 * expected_w1) + (8.0 * expected_w2)) / (expected_w1 + expected_w2)
+    expected_feedback_weight = (expected_w1 + expected_w2) / 2
 
     assert trust_calculator.calls_count == 1
     assert result.feedback.content.marks[0].weight == pytest.approx(expected_w1)
@@ -142,6 +142,7 @@ def test_from_configuration_builds_service_with_required_dependencies() -> None:
     service = MarkWeightCalculator.from_configuration(configuration)
 
     assert service.mark_weight_aggregation_policy.config == configuration.feedback_weight_aggregation
+    assert isinstance(service.average_mark_weight_aggregation_policy, AverageMarkWeightAggregationPolicy)
     assert service.base_rating_contribution_policy.config == configuration.base
     assert service.reviewer_trust_contribution_policy.config == configuration.base
 

@@ -11,6 +11,7 @@ from rating_weighted.domain.policies.final_rating_aggregation import (
 )
 from rating_weighted.domain.policies.mark_weight_aggregation import MarkWeightAggregationPolicy
 from rating_weighted.domain.policies.mark_score_aggregation import (
+    AverageMarkWeightAggregationPolicy,
     TotalMarkWeightAggregationPolicy,
     WeightedAverageMarkScoreAggregationPolicy,
 )
@@ -31,7 +32,7 @@ class MarkWeightCalculator:
 
     mark_weight_aggregation_policy: MarkWeightAggregationPolicy
     total_mark_weight_aggregation_policy: TotalMarkWeightAggregationPolicy
-    weighted_average_mark_score_aggregation_policy: WeightedAverageMarkScoreAggregationPolicy
+    average_mark_weight_aggregation_policy: AverageMarkWeightAggregationPolicy
     base_rating_contribution_policy: BaseRatingContributionPolicy
     reviewer_trust_contribution_policy: ReviewerTrustContributionPolicy
 
@@ -44,7 +45,7 @@ class MarkWeightCalculator:
                 config=configuration.feedback_weight_aggregation
             ),
             total_mark_weight_aggregation_policy=TotalMarkWeightAggregationPolicy(),
-            weighted_average_mark_score_aggregation_policy=WeightedAverageMarkScoreAggregationPolicy(),
+            average_mark_weight_aggregation_policy=AverageMarkWeightAggregationPolicy(),
             base_rating_contribution_policy=BaseRatingContributionPolicy(config=configuration.base),
             reviewer_trust_contribution_policy=ReviewerTrustContributionPolicy(
                 config=configuration.base
@@ -58,7 +59,7 @@ class MarkWeightCalculator:
             for mark_context in context.per_mark_contexts()
         )
 
-        weighted_average_mark: float = self.weighted_average_mark_score_aggregation_policy.apply(
+        weighted_average_mark: float = self.average_mark_weight_aggregation_policy.apply(
             marks_with_weights
         )
 

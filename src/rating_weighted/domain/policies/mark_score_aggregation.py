@@ -25,3 +25,19 @@ class WeightedAverageMarkScoreAggregationPolicy:
             raise ZeroTotalMarkWeightError("Невозможно рассчитать средневзвешенную оценку с нулевым общим весом")
 
         return weighted_marks_sum / total_weight
+
+
+@dataclass(frozen=True)
+class AverageMarkWeightAggregationPolicy:
+    def apply(self, marks_with_weights: Iterable[FeedbackMarkWithWeight]) -> float:
+        total_weight = 0.0
+        marks_count = 0
+
+        for mark_with_weight in marks_with_weights:
+            total_weight += mark_with_weight.weight
+            marks_count += 1
+
+        if marks_count == 0:
+            raise ZeroTotalMarkWeightError("Невозможно рассчитать средний вес без оценок")
+
+        return total_weight / marks_count

@@ -5,6 +5,7 @@ from rating_kernel.domain.value_objects.feedback import FeedbackMarkWithWeight
 from rating_weighted.domain.policies.mark_score_aggregation import (
     TotalMarkWeightAggregationPolicy,
     WeightedAverageMarkScoreAggregationPolicy,
+    AverageMarkWeightAggregationPolicy,
 )
 
 
@@ -56,3 +57,23 @@ def test_weighted_average_mark_score_aggregation_policy_raises_domain_error_when
                 FeedbackMarkWithWeight(value=2.0, weight=0.0),
             )
         )
+
+
+def test_average_mark_weight_returns_arithmetic_mean() -> None:
+    policy = AverageMarkWeightAggregationPolicy()
+    marks_with_weights = (
+        FeedbackMarkWithWeight(value=5.0, weight=0.5),
+        FeedbackMarkWithWeight(value=4.0, weight=1.5),
+        FeedbackMarkWithWeight(value=3.0, weight=1.0),
+    )
+
+    result = policy.apply(marks_with_weights)
+
+    assert result == pytest.approx((0.5 + 1.5 + 1.0) / 3), "Должно возвращаться среднее арифметическое весов"
+
+
+def test_average_mark_weight_raises_when_no_marks_provided() -> None:
+    policy = AverageMarkWeightAggregationPolicy()
+
+    with pytest.raises(ZeroTotalMarkWeightError):
+        policy.apply(())
